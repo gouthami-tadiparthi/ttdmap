@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tirumala Temple-Centric Map · Sri Venkateswara Swamy Devasthanam</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Telugu:wght@600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --maroon: #6B0F1A;
+  --maroon-deep: #3D0810;
+  --gold: #C8870C;
+  --gold-bright: #F5D04E;
+  --gold-pale: #E8B547;
+  --saffron: #E5731F;
+  --cream: #F8F1E0;
+  --paper: #FDF8EC;
+  --ivory: #FFFCF2;
+  --moss: #5C7847;
+  --moss-deep: #2F4422;
+  --moss-light: #8FB066;
+  --road: #E8D8A8;
+  --road-dark: #C8A858;
+  --water: #6FA8D4;
+  --water-deep: #3A7AAB;
+  --ink: #1F0E03;
+  --ink-soft: #4A2818;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Manrope', sans-serif;
+  background: #2A1810;
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── HEADER ─── */
+.ribbon {
+  height: 6px;
+  background: repeating-linear-gradient(90deg,
+    var(--maroon) 0 22px, var(--gold) 22px 44px,
+    var(--saffron) 44px 66px, var(--gold) 66px 88px);
+}
+header {
+  background: linear-gradient(180deg, #1F0E03 0%, var(--maroon-deep) 60%, var(--maroon) 100%);
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--gold);
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 28px, rgba(245,208,78,0.04) 28px 30px),
+    repeating-linear-gradient(-45deg, transparent 0 28px, rgba(245,208,78,0.04) 28px 30px);
+  pointer-events: none;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+.brand-logo {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.4);
+  border: 2px solid var(--gold-pale);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 20px rgba(232,181,71,0.4);
+}
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--gold-bright);
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+.h-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(232,181,71,0.7);
+  margin-top: 2px;
+}
+.h-meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(232,181,71,0.6);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.h-meta strong { color: var(--gold-bright); display: block; font-size: 16px; font-family: 'Cormorant Garamond', serif; font-weight:600; text-transform: none; letter-spacing: 0.3px; }
+
+/* ─── MAIN LAYOUT ─── */
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 0;
+  height: calc(100vh - 80px);
+  background: #1A0E05;
+}
+
+/* ─── SIDEBAR (Legend & Filters) ─── */
+.sidebar {
+  background: linear-gradient(180deg, #2A1810 0%, #1F0E03 100%);
+  padding: 20px 18px;
+  overflow-y: auto;
+  border-right: 1px solid rgba(200,135,12,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.sidebar h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--gold-pale);
+  text-transform: uppercase;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(200,135,12,0.3);
+  margin-bottom: 4px;
+}
+
+/* Search */
+.search-box {
+  position: relative;
+}
+.search-box input {
+  width: 100%;
+  padding: 10px 12px 10px 34px;
+  background: rgba(255,252,242,0.06);
+  border: 1px solid rgba(200,135,12,0.3);
+  border-radius: 8px;
+  color: var(--gold-bright);
+  font-size: 13px;
+  font-family: 'Manrope', sans-serif;
+  outline: none;
+}
+.search-box input::placeholder { color: rgba(232,181,71,0.5); }
+.search-box input:focus { border-color: var(--gold); }
+.search-box::before {
+  content: '🔍';
+  position: absolute;
+  left: 11px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  opacity: 0.5;
+}
+
+/* Filter chips */
+.legend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.18s;
+  border: 1px solid transparent;
+  user-select: none;
+}
+.legend-item:hover { background: rgba(245,208,78,0.06); }
+.legend-item.active {
+  background: rgba(245,208,78,0.12);
+  border-color: rgba(200,135,12,0.4);
+}
+.legend-marker {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  border: 1.5px solid rgba(255,252,242,0.25);
+}
+.legend-text {
+  flex: 1;
+}
+.legend-name {
+  font-size: 12.5px;
+  color: var(--gold-bright);
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+.legend-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  color: rgba(232,181,71,0.55);
+  margin-top: 1px;
+}
+
+/* Stats footer */
+.stats-block {
+  background: rgba(245,208,78,0.04);
+  border: 1px solid rgba(200,135,12,0.2);
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: auto;
+}
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 5px 0;
+  border-bottom: 1px dashed rgba(200,135,12,0.15);
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-row .lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 1px;
+  color: rgba(232,181,71,0.6);
+  text-transform: uppercase;
+}
+.stat-row .val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--gold-bright);
+}
+
+/* ─── MAP CONTAINER ─── */
+.map-area {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse at center, #3a5c24 0%, #2A4218 65%, #1A2810 100%);
+}
+
+/* Compass */
+.compass {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 56px; height: 56px;
+  background: rgba(0,0,0,0.5);
+  border: 1.5px solid var(--gold-pale);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  backdrop-filter: blur(6px);
+}
+.compass::before, .compass::after {
+  position: absolute;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--gold-bright);
+  letter-spacing: 1px;
+}
+.compass::before { content: 'N'; top: 4px; }
+.compass::after { content: 'S'; bottom: 4px; opacity: 0.5; }
+.compass-arrow {
+  width: 4px;
+  height: 30px;
+  background: linear-gradient(180deg, #B82828 50%, #ddd 50%);
+  border-radius: 2px;
+}
+
+/* Map Controls */
+.map-ctrls {
+  position: absolute;
+  bottom: 24px; right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 50;
+}
+.map-ctrls button {
+  width: 38px; height: 38px;
+  background: rgba(0,0,0,0.7);
+  border: 1px solid var(--gold-pale);
+  color: var(--gold-bright);
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.15s;
+  backdrop-filter: blur(4px);
+}
+.map-ctrls button:hover {
+  background: var(--maroon);
+  transform: scale(1.05);
+}
+
+/* Scale bar */
+.scale {
+  position: absolute;
+  bottom: 16px; left: 16px;
+  background: rgba(0,0,0,0.5);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--gold-bright);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(200,135,12,0.4);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+}
+.scale-bar {
+  width: 80px; height: 4px;
+  background: linear-gradient(90deg, white 50%, transparent 50%);
+  background-size: 16px 100%;
+  border: 1px solid white;
+}
+
+/* Map title overlay */
+.map-title-overlay {
+  position: absolute;
+  top: 16px; left: 16px;
+  background: rgba(0,0,0,0.6);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  border: 1px solid rgba(200,135,12,0.4);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+}
+
+/* SVG Map */
+#map-svg {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  display: block;
+}
+#map-svg:active { cursor: grabbing; }
+
+/* POI Pin styles */
+.poi-group { cursor: pointer; transition: filter 0.2s; }
+.poi-group:hover { filter: drop-shadow(0 0 8px rgba(245,208,78,0.6)); }
+.poi-group.dimmed { opacity: 0.18; }
+.poi-group.active { filter: drop-shadow(0 0 12px rgba(245,208,78,0.9)); }
+
+.poi-label {
+  font-family: 'Manrope', sans-serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  fill: var(--ink);
+  pointer-events: none;
+  user-select: none;
+}
+.poi-label-bg {
+  fill: rgba(255,252,242,0.92);
+  pointer-events: none;
+}
+
+/* Routes (lines from temple to POIs) */
+.route-line {
+  stroke-dasharray: 5 4;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+.route-line.show { opacity: 0.7; }
+
+/* Pulse animation for temple */
+@keyframes templePulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.15); }
+}
+
+/* INFO PANEL (Click on POI) */
+.info-panel {
+  position: absolute;
+  top: 24px; right: 88px;
+  background: rgba(31,14,3,0.95);
+  border: 1.5px solid var(--gold);
+  border-radius: 12px;
+  padding: 20px;
+  width: 320px;
+  max-height: calc(100vh - 130px);
+  overflow-y: auto;
+  z-index: 60;
+  display: none;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
+.info-panel.visible { display: block; animation: slideIn 0.3s ease; }
+@keyframes slideIn {
+  from { opacity:0; transform:translateX(20px); }
+  to { opacity:1; transform:translateX(0); }
+}
+.info-close {
+  position: absolute;
+  top: 10px; right: 12px;
+  background: none;
+  border: none;
+  color: var(--gold-pale);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+.info-close:hover { color: var(--gold-bright); }
+
+.info-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  padding: 3px 9px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  color: white;
+}
+.info-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--gold-bright);
+  margin-bottom: 4px;
+  letter-spacing: 0.3px;
+}
+.info-desc {
+  font-size: 13px;
+  color: rgba(232,181,71,0.85);
+  line-height: 1.5;
+  font-style: italic;
+  margin-bottom: 14px;
+}
+
+.info-walk {
+  background: rgba(245,208,78,0.08);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 12px;
+  margin-bottom: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.info-walk-cell {
+  text-align: center;
+}
+.info-walk-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold-bright);
+}
+.info-walk-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: rgba(232,181,71,0.55);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.info-section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--gold-pale);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.info-directions {
+  list-style: none;
+  counter-reset: step;
+  margin-bottom: 14px;
+}
+.info-directions li {
+  counter-increment: step;
+  position: relative;
+  padding: 6px 6px 6px 28px;
+  font-size: 12px;
+  color: rgba(232,181,71,0.85);
+  line-height: 1.5;
+  border-bottom: 1px dashed rgba(200,135,12,0.2);
+}
+.info-directions li:last-child { border-bottom: none; }
+.info-directions li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0; top: 7px;
+  width: 20px; height: 20px;
+  background: var(--maroon);
+  color: var(--gold-bright);
+  border-radius: 50%;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-btn {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background: var(--maroon);
+  color: var(--gold-bright);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  transition: all 0.2s;
+  border: 1px solid var(--gold);
+}
+.info-btn:hover {
+  background: var(--maroon-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(245,208,78,0.25);
+}
+
+/* Tooltip on hover */
+.tooltip {
+  position: fixed;
+  background: rgba(31,14,3,0.95);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--gold-bright);
+  z-index: 100;
+  pointer-events: none;
+  display: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  max-width: 220px;
+  backdrop-filter: blur(6px);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+}
+.tooltip strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  margin-bottom: 2px;
+  color: white;
+  font-weight: 600;
+}
+.tooltip span {
+  font-size: 11px;
+  color: rgba(232,181,71,0.7);
+  font-style: italic;
+}
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; height: auto; }
+  .sidebar { max-height: 240px; }
+  .map-area { height: 70vh; }
+  .info-panel { right: 16px; left: 16px; width: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="ribbon"></div>
+
+<header>
+  <div class="brand">
+    <div class="brand-logo">
+      <svg width="36" height="42" viewBox="0 0 100 116" fill="none">
+        <ellipse cx="50" cy="7" rx="7" ry="7" fill="#F0C040"/>
+        <rect x="47" y="2" width="6" height="7" fill="#C8860A"/>
+        <rect x="40" y="13" width="20" height="8" rx="1.5" fill="#E8A830"/>
+        <rect x="33" y="20" width="34" height="9" rx="1.5" fill="#D4A017"/>
+        <rect x="25" y="28" width="50" height="10" rx="2" fill="#E8A830"/>
+        <rect x="16" y="37" width="68" height="11" rx="2" fill="#D4A017"/>
+        <rect x="8" y="47" width="84" height="13" rx="2.5" fill="#E8A830"/>
+        <rect x="16" y="59" width="68" height="38" fill="#D4A017"/>
+        <rect x="16" y="59" width="10" height="38" fill="#B88500"/>
+        <rect x="74" y="59" width="10" height="38" fill="#B88500"/>
+        <path d="M34 97L34 76Q50 66 66 76L66 97Z" fill="#4A0000"/>
+        <rect x="4" y="97" width="92" height="8" rx="2" fill="#8B5000"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Tirumala Temple-Centric Map</h1>
+      <div class="h-sub">All pilgrim services radiating from Sri Venkateswara Swamy Temple</div>
+    </div>
+  </div>
+  <div class="h-meta">
+    <div><span>Locations</span><strong>54</strong></div>
+    <div><span>Categories</span><strong>8</strong></div>
+    <div><span>Center</span><strong>🛕 Temple</strong></div>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="search-box">
+      <input id="search" type="text" placeholder="Search locations…" oninput="searchLocations()">
+    </div>
+
+    <div>
+      <h3>Categories</h3>
+      <div class="legend-list" id="legend">
+        <div class="legend-item active" data-cat="all" onclick="setFilter('all', this)">
+          <div class="legend-marker" style="background:linear-gradient(135deg,#C8870C,#E8B547);">★</div>
+          <div class="legend-text">
+            <div class="legend-name">Show All</div>
+            <div class="legend-count">54 locations · all categories</div>
+          </div>
+        </div>
+        <div class="legend-item" data-cat="darshan" onclick="setFilter('darshan', this)">
+          <div class="legend-marker" style="background:linear-gradient(135deg,#5A3F8C,#7A5DAB);">🙏</div>
+          <div class="legend-text">
+            <div class="legend-name">Darshan Entry</div>
+            <div class="legend-count">8 entry queues</div>
+          </div>
+        </div>
+        <div class="legend-item" data-cat="transport" onclick="setFilter('transport', this)">
+          <div class="legend-marker" style="background:linear-gradient(135deg,#1F5A8A,#2B7AB8);">🚌</div>
+          <div class="legend-text">
+            <div class="legend-name">Transportation</div>
+            <div class="legend-count">6 transport hubs</div>
+          </div>
+        </div>
+        <div class="legend-item" data-cat="medical" onclick="setFilter('medical', this)">
+          <div class="legend-marker" style="background:linear-gradient(135deg,#B82828,#DC4444);">🏥</div>
+          <div class="legend-text">
+            <div class="legend-name">Medical</div>
+            <div class="legend-count">3 medical facilities</div>
+          </div>
+        </div>
+        <div class="legend-item" data-cat="accom" onclick="setFilter('accom', this)">
+          <div class="legend-marker" style="background:linear-gradient(135deg,#C8870C,#E8B547);">🏨</div>
+          <div class="legend-text">
+            <div class="legend-name">Accommodation</div>
+            <div class="legend-count">24 stay options</div>
+          </div>
+        </div>
+        <div class="legend-item" data-cat="service" onclick="setFilter('service', this)">
+          <div class="legend-marker" style="background:linear-gradient(135deg,#1F6E4A,#2A9870);">✂️</div>
+          <div class="legend-text">
+            <div class="legend-name">Tonsuring & Services</div>
+            <div class="legend-count">4 ritual services</div>
+          </div>
+        </div>
+        <div class="legend-item" data-cat="food" onclick="setFilter('food', this)">
+          <div class="legend-marker" style="background:linear-gradient(135deg,#9C2E16,#C44A28);">🍛</div>
+          <div class="legend-text">
+            <div class="legend-name">Food Counters</div>
+            <div class="legend-count">3 dining venues</div>
+          </div>
+        </div>
+        <div class="legend-item" data-cat="luggage" onclick="setFilter('luggage', this)">
+          <div class="legend-marker" style="background:linear-gradient(135deg,#5C5040,#807060);">🧳</div>
+          <div class="legend-text">
+            <div class="legend-name">Luggage / Mobile</div>
+            <div class="legend-count">3 deposit counters</div>
+          </div>
+        </div>
+        <div class="legend-item" data-cat="emergency" onclick="setFilter('emergency', this)">
+          <div class="legend-marker" style="background:linear-gradient(135deg,#8C1414,#C42828);">🆘</div>
+          <div class="legend-text">
+            <div class="legend-name">Emergency</div>
+            <div class="legend-count">3 emergency points</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-block">
+      <div class="stat-row"><span class="lbl">Total POIs</span><span class="val">54</span></div>
+      <div class="stat-row"><span class="lbl">Map Center</span><span class="val">Temple</span></div>
+      <div class="stat-row"><span class="lbl">Furthest</span><span class="val">~700m</span></div>
+      <div class="stat-row"><span class="lbl">Click pin</span><span class="val">Details</span></div>
+    </div>
+  </aside>
+
+  <!-- MAP -->
+  <div class="map-area" id="mapArea">
+
+    <div class="map-title-overlay">📍 Tirumala Hills · Temple-Centric View</div>
+
+    <div class="compass"><div class="compass-arrow"></div></div>
+
+    <div class="scale">
+      <div class="scale-bar"></div>
+      <span>~250m</span>
+    </div>
+
+    <div class="map-ctrls">
+      <button onclick="zoomIn()" title="Zoom in">+</button>
+      <button onclick="zoomOut()" title="Zoom out">−</button>
+      <button onclick="resetView()" title="Reset" style="font-size:13px;">⟲</button>
+    </div>
+
+    <!-- INFO PANEL -->
+    <div class="info-panel" id="info">
+      <button class="info-close" onclick="closeInfo()">×</button>
+      <span class="info-tag" id="info-tag"></span>
+      <div class="info-name" id="info-name"></div>
+      <div class="info-desc" id="info-desc"></div>
+      <div class="info-walk">
+        <div class="info-walk-cell">
+          <div class="info-walk-num" id="info-time">—</div>
+          <div class="info-walk-lbl">Walk Time</div>
+        </div>
+        <div class="info-walk-cell">
+          <div class="info-walk-num" id="info-dist">—</div>
+          <div class="info-walk-lbl">Distance</div>
+        </div>
+      </div>
+      <div class="info-section-title" id="info-dir-title">Walking Directions</div>
+      <ol class="info-directions" id="info-directions"></ol>
+      <a class="info-btn" id="info-btn" target="_blank">🗺️ Open in Google Maps</a>
+    </div>
+
+    <!-- THE MAP -->
+    <svg id="map-svg" viewBox="0 0 1400 1100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <radialGradient id="terrainG" cx="50%" cy="50%" r="55%">
+          <stop offset="0%" stop-color="#88a865"/>
+          <stop offset="50%" stop-color="#608048"/>
+          <stop offset="100%" stop-color="#3a5028"/>
+        </radialGradient>
+        <radialGradient id="forestG"><stop offset="0%" stop-color="#3a5824"/><stop offset="100%" stop-color="#1f3814"/></radialGradient>
+        <linearGradient id="waterG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7AB6E0"/>
+          <stop offset="100%" stop-color="#3A7AAB"/>
+        </linearGradient>
+        <pattern id="treesP" width="34" height="34" patternUnits="userSpaceOnUse">
+          <circle cx="17" cy="17" r="3" fill="#456a30" opacity="0.55"/>
+          <circle cx="6" cy="9" r="2" fill="#3a5824" opacity="0.45"/>
+          <circle cx="28" cy="25" r="2.4" fill="#2f4a1d" opacity="0.4"/>
+        </pattern>
+        <pattern id="grassP" width="10" height="10" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2="3" stroke="#7a9a55" stroke-width="0.7" opacity="0.4"/>
+          <line x1="5" y1="0" x2="5" y2="3" stroke="#85a560" stroke-width="0.7" opacity="0.35"/>
+        </pattern>
+        <filter id="pinShadow">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.5)"/>
+        </filter>
+        <filter id="templeGlow">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- TERRAIN -->
+      <rect width="1400" height="1100" fill="#2A4218"/>
+      <ellipse cx="700" cy="550" rx="700" ry="540" fill="url(#terrainG)"/>
+      <ellipse cx="700" cy="550" rx="700" ry="540" fill="url(#treesP)" opacity="0.7"/>
+      <ellipse cx="700" cy="550" rx="700" ry="540" fill="url(#grassP)" opacity="0.4"/>
+
+      <!-- Hill ridges (contour lines) -->
+      <ellipse cx="700" cy="550" rx="620" ry="475" fill="none" stroke="#a0c075" stroke-width="1" opacity="0.35" stroke-dasharray="6 8"/>
+      <ellipse cx="700" cy="548" rx="500" ry="385" fill="none" stroke="#a0c075" stroke-width="1" opacity="0.3" stroke-dasharray="6 8"/>
+      <ellipse cx="700" cy="548" rx="380" ry="295" fill="none" stroke="#90b065" stroke-width="0.8" opacity="0.28" stroke-dasharray="6 8"/>
+      <ellipse cx="700" cy="546" rx="260" ry="205" fill="none" stroke="#90b065" stroke-width="0.8" opacity="0.25" stroke-dasharray="6 8"/>
+
+      <!-- Forest patches -->
+      <ellipse cx="200" cy="350" rx="120" ry="90" fill="url(#forestG)" opacity="0.55"/>
+      <ellipse cx="1200" cy="320" rx="110" ry="80" fill="url(#forestG)" opacity="0.55"/>
+      <ellipse cx="180" cy="900" rx="100" ry="80" fill="url(#forestG)" opacity="0.5"/>
+      <ellipse cx="1240" cy="900" rx="120" ry="100" fill="url(#forestG)" opacity="0.5"/>
+      <ellipse cx="1300" cy="200" rx="80" ry="60" fill="url(#forestG)" opacity="0.45"/>
+
+      <!-- ── WATER BODIES ── -->
+      <!-- Swami Pushkarini (NW of temple) -->
+      <ellipse cx="540" cy="380" rx="48" ry="32" fill="url(#waterG)" stroke="#1F5A8A" stroke-width="1.5"/>
+      <ellipse cx="540" cy="380" rx="40" ry="25" fill="rgba(170,210,240,0.4)"/>
+      <text x="540" y="377" text-anchor="middle" fill="#0F3A60" font-family="Cormorant Garamond, serif" font-size="11" font-style="italic" font-weight="600">Swami</text>
+      <text x="540" y="390" text-anchor="middle" fill="#0F3A60" font-family="Cormorant Garamond, serif" font-size="11" font-style="italic" font-weight="600">Pushkarini</text>
+
+      <!-- Papanasam tank (NW far) -->
+      <ellipse cx="180" cy="430" rx="34" ry="22" fill="url(#waterG)" stroke="#1F5A8A" stroke-width="1"/>
+      <text x="180" y="427" text-anchor="middle" fill="#0F3A60" font-family="Cormorant Garamond, serif" font-size="9.5" font-style="italic">Papanasam</text>
+      <text x="180" y="438" text-anchor="middle" fill="#0F3A60" font-family="Cormorant Garamond, serif" font-size="9.5" font-style="italic">Tank</text>
+
+      <!-- ── ROADS ── -->
+      <!-- Outer ring road around temple -->
+      <ellipse cx="700" cy="550" rx="320" ry="240" fill="none" stroke="#a89058" stroke-width="14" opacity="0.5"/>
+      <ellipse cx="700" cy="550" rx="320" ry="240" fill="none" stroke="#E8D8A8" stroke-width="8"/>
+      <ellipse cx="700" cy="550" rx="320" ry="240" fill="none" stroke="rgba(255,252,242,0.45)" stroke-width="1.2" stroke-dasharray="10 8"/>
+
+      <!-- Mada streets (inner ring around temple) -->
+      <ellipse cx="700" cy="550" rx="120" ry="100" fill="none" stroke="#b89860" stroke-width="9" opacity="0.5"/>
+      <ellipse cx="700" cy="550" rx="120" ry="100" fill="none" stroke="#F0E0B0" stroke-width="5"/>
+      <ellipse cx="700" cy="550" rx="120" ry="100" fill="none" stroke="rgba(255,252,242,0.5)" stroke-width="1" stroke-dasharray="7 6"/>
+
+      <!-- North-South spine (Pradakshina road) -->
+      <path d="M700 70 L700 1030" stroke="#a89058" stroke-width="14" stroke-linecap="round" opacity="0.45"/>
+      <path d="M700 70 L700 1030" stroke="#E8D8A8" stroke-width="8" stroke-linecap="round"/>
+      <path d="M700 70 L700 1030" stroke="rgba(255,252,242,0.45)" stroke-width="1.2" stroke-dasharray="11 9"/>
+
+      <!-- East-West main road -->
+      <path d="M50 550 L1350 550" stroke="#a89058" stroke-width="14" stroke-linecap="round" opacity="0.45"/>
+      <path d="M50 550 L1350 550" stroke="#E8D8A8" stroke-width="8" stroke-linecap="round"/>
+      <path d="M50 550 L1350 550" stroke="rgba(255,252,242,0.45)" stroke-width="1.2" stroke-dasharray="11 9"/>
+
+      <!-- Diagonal access roads -->
+      <path d="M250 200 Q500 380 700 550" stroke="#c8b070" stroke-width="9" stroke-linecap="round" fill="none" opacity="0.4"/>
+      <path d="M250 200 Q500 380 700 550" stroke="#E8D8A8" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+      <path d="M1150 200 Q900 380 700 550" stroke="#c8b070" stroke-width="9" stroke-linecap="round" fill="none" opacity="0.4"/>
+      <path d="M1150 200 Q900 380 700 550" stroke="#E8D8A8" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+      <path d="M250 900 Q500 720 700 550" stroke="#c8b070" stroke-width="9" stroke-linecap="round" fill="none" opacity="0.4"/>
+      <path d="M250 900 Q500 720 700 550" stroke="#E8D8A8" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+      <path d="M1150 900 Q900 720 700 550" stroke="#c8b070" stroke-width="9" stroke-linecap="round" fill="none" opacity="0.4"/>
+      <path d="M1150 900 Q900 720 700 550" stroke="#E8D8A8" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+      <!-- Ghat road from Tirupati (SW corner serpentine) -->
+      <path d="M40 1080 Q70 1020 110 980 Q160 920 130 870 Q100 820 150 780 Q200 740 280 740"
+            fill="none" stroke="#a89058" stroke-width="9" stroke-linecap="round" opacity="0.45"/>
+      <path d="M40 1080 Q70 1020 110 980 Q160 920 130 870 Q100 820 150 780 Q200 740 280 740"
+            fill="none" stroke="#E8D8A8" stroke-width="5" stroke-linecap="round"/>
+      <path d="M40 1080 Q70 1020 110 980 Q160 920 130 870 Q100 820 150 780 Q200 740 280 740"
+            fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1" stroke-dasharray="7 7"/>
+      <text x="50" y="1070" font-family="JetBrains Mono, monospace" font-size="10" fill="#fff8d8" opacity="0.7">↘ Alipiri Ghat (from Tirupati)</text>
+
+      <!-- ── ROAD LABELS ── -->
+      <text x="700" y="60" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="13" fill="#fff8d8" opacity="0.65">↑ North Mada Street</text>
+      <text x="700" y="1055" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="13" fill="#fff8d8" opacity="0.65">South Mada Street ↓</text>
+      <text x="65" y="540" font-family="Cormorant Garamond, serif" font-style="italic" font-size="13" fill="#fff8d8" opacity="0.65">← West Mada Street</text>
+      <text x="1220" y="540" font-family="Cormorant Garamond, serif" font-style="italic" font-size="13" fill="#fff8d8" opacity="0.65">East Mada Street →</text>
+
+      <!-- ── ZONE LABELS ── -->
+      <text x="180" y="540" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" font-weight="700" fill="#fff8d8" opacity="0.5">MEDICAL ZONE</text>
+      <text x="500" y="900" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" font-weight="700" fill="#fff8d8" opacity="0.5">SERVICE COMPLEX</text>
+      <text x="1010" y="500" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" font-weight="700" fill="#fff8d8" opacity="0.5">COTTAGE ZONE</text>
+      <text x="950" y="800" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" font-weight="700" fill="#fff8d8" opacity="0.5">PAC ACCOMMODATION</text>
+      <text x="280" y="700" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" font-weight="700" fill="#fff8d8" opacity="0.5">RAMBAGICHA</text>
+      <text x="700" y="430" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2" font-weight="700" fill="#fff8d8" opacity="0.5">DARSHAN QUEUES</text>
+      <text x="640" y="780" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2" font-weight="700" fill="#fff8d8" opacity="0.5">ADMIN HUB (Seva Sadan)</text>
+
+      <!-- ── ATC CIRCLE ── -->
+      <circle cx="850" cy="430" r="22" fill="#F0E0B0" stroke="#A06B0A" stroke-width="2.5"/>
+      <circle cx="850" cy="430" r="13" fill="#D0B070" stroke="#A06B0A" stroke-width="1.5"/>
+      <text x="850" y="434" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#5A3508">ATC</text>
+
+      <!-- ── VQC CIRCLE ── -->
+      <circle cx="600" cy="430" r="18" fill="#F0E0B0" stroke="#A06B0A" stroke-width="2"/>
+      <text x="600" y="434" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#5A3508">VQC</text>
+
+      <!-- ROUTES LAYER (lines drawn from temple to active POI) -->
+      <g id="routesLayer"></g>
+
+      <!-- ═══════════════════════════════════════
+           THE CENTRE: SRI VENKATESWARA TEMPLE
+      ═══════════════════════════════════════ -->
+      <g id="temple-group">
+        <!-- Outer glow ring -->
+        <circle cx="700" cy="550" r="100" fill="rgba(245,208,78,0.08)">
+          <animate attributeName="r" values="95;110;95" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.08;0.18;0.08" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="700" cy="550" r="80" fill="rgba(245,208,78,0.12)" filter="url(#templeGlow)"/>
+
+        <!-- Outer prakaram wall (square) -->
+        <rect x="630" y="480" width="140" height="140" rx="6" fill="#FAF0C8" stroke="#8C5A0A" stroke-width="3" filter="url(#pinShadow)"/>
+
+        <!-- Inner court -->
+        <rect x="650" y="500" width="100" height="100" rx="4" fill="#F0DEA0" stroke="#A06B0A" stroke-width="1.5"/>
+
+        <!-- Gopuram tower silhouette -->
+        <rect x="678" y="513" width="44" height="48" rx="3" fill="#C8870C"/>
+        <rect x="685" y="503" width="30" height="13" rx="2" fill="#A06B0A"/>
+        <rect x="690" y="492" width="20" height="13" rx="2" fill="#C8870C"/>
+        <rect x="694" y="482" width="12" height="11" rx="2" fill="#A06B0A"/>
+        <ellipse cx="700" cy="478" rx="6" ry="6" fill="#F5D04E" filter="url(#templeGlow)"/>
+        <!-- Sanctum arch -->
+        <path d="M688 561 L688 542 Q700 534 712 542 L712 561Z" fill="#3D0810"/>
+
+        <!-- Temple name plate -->
+        <rect x="610" y="630" width="180" height="30" rx="4" fill="#FAF0C8" stroke="#A06B0A" stroke-width="1.5"/>
+        <text x="700" y="650" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-weight="700" fill="#3D0810">Sri Venkateswara</text>
+
+        <!-- Subtitle below -->
+        <text x="700" y="675" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="2" font-weight="700" fill="#FAF0C8">★ THE TEMPLE ★</text>
+
+        <!-- Center marker (very small) -->
+        <circle cx="700" cy="550" r="3" fill="#F5D04E"/>
+      </g>
+
+      <!-- POI PINS LAYER (rendered by JS) -->
+      <g id="poiLayer"></g>
+    </svg>
+  </div>
+</div>
+
+<!-- TOOLTIP -->
+<div class="tooltip" id="tooltip">
+  <strong id="tt-name"></strong>
+  <span id="tt-meta"></span>
+</div>
+
+<script>
+const LOCATIONS = [{"id":"t1","cat":"transport","name":"Balaji Bus Stand","sub":"","desc":"TTD bus terminus for travel to Tirupati & other major cities (with reservations)","walk_min":8,"walk_m":650,"directions":["Exit Seva Sadan main gate; head south along the TTD admin road","Continue past the CRO building on your right","Turn left at the first major junction onto Balaji Bus Stand road","Walk approx. 250m; the bus stand is on your right with covered platforms"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Tirumala+Bus+Stand+Tirumala/data=!4m2!4m1!3e2","img":"bus","mx":370,"my":780},{"id":"t2","cat":"transport","name":"Rambagicha Bus Stand","sub":"","desc":"Secondary bus stand for travel to Tirupati via Rambagicha route","walk_min":12,"walk_m":950,"directions":["From Seva Sadan, head south-west along TTD admin road","Pass the main bus stand on your left","Continue south for ~400m through Rambagicha colony","Turn right at Rambagicha junction; bus stand is 50m ahead"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Rambagicha+Bus+Stand+Tirumala/data=!4m2!4m1!3e2","img":"bus","mx":290,"my":845},{"id":"t3","cat":"transport","name":"Petrol / Gas Station","sub":"","desc":"Fuel services for vehicles on Tirumala Hills","walk_min":15,"walk_m":1200,"directions":["Head east from Seva Sadan onto the Main Road (TTD-1)","Continue past ATC Circle for ~700m","Pass the accommodation cluster on your right","Petrol station is at the eastern end of the main road"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Petrol+Bunk+Tirumala/data=!4m2!4m1!3e2","img":"fuel","mx":1170,"my":470},{"id":"t4","cat":"transport","name":"Railway Reservation Counter","sub":"","desc":"TTD railway counter for booking train tickets for return journey","walk_min":15,"walk_m":1200,"directions":["Head east from Seva Sadan onto Main Road","Continue past ATC Circle for ~750m","Reservation counter is adjacent to the petrol station","Look for the TTD Railway Counter signage"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Railway+Reservation+Counter+Tirumala/data=!4m2!4m1!3e2","img":"train","mx":1200,"my":510},{"id":"t5","cat":"transport","name":"Parking","sub":"","desc":"Designated vehicle parking zones on Tirumala Hills","walk_min":13,"walk_m":1050,"directions":["Head east from Seva Sadan along Main Road","Cross ATC Circle and continue ~500m east","Turn south at the parking signage","Multi-zone parking area covers ~2 acres"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Tirumala+Parking+Area/data=!4m2!4m1!3e2","img":"parking","mx":1080,"my":470},{"id":"t6","cat":"transport","name":"Free Bus Stop","sub":"","desc":"TTD complimentary pilgrim bus service running across Tirumala","walk_min":4,"walk_m":300,"directions":["Step out of Seva Sadan main gate","The Free Bus stop is directly opposite, marked TTD Free Service","Buses run every 15 min; no ticket required"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/TTD+Free+Bus+Stop+Tirumala/data=!4m2!4m1!3e2","img":"bus","mx":650,"my":815},{"id":"m1","cat":"medical","name":"Aswini Hospital","sub":"","desc":"Full-service TTD hospital · Free treatment for all pilgrims · 24×7","walk_min":10,"walk_m":800,"directions":["Head west from Seva Sadan","Walk along the medical zone branch road for ~400m","Pass Seshadri Nagar colony on your left","Aswini Hospital is the large red-cross building at the end"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Aswini+Hospital+Tirumala/data=!4m2!4m1!3e2","img":"hospital","mx":250,"my":540},{"id":"m2","cat":"medical","name":"Dispensary","sub":"","desc":"TTD dispensary at Vaikuntam Queue Complex · Medicines & First Aid","walk_min":7,"walk_m":550,"directions":["Head north-east from Seva Sadan toward VQC","Walk past the queue complex entrance","Dispensary is inside VQC ground floor","Look for green-cross signage"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/TTD+Dispensary+Vaikuntam+Queue+Complex+Tirumala/data=!4m2!4m1!3e2","img":"medical","mx":575,"my":415},{"id":"m3","cat":"medical","name":"Ambulance Bay","sub":"","desc":"24×7 emergency ambulance dispatch · TTD-managed","walk_min":11,"walk_m":850,"directions":["Head west from Seva Sadan toward Aswini Hospital","Ambulance bay is adjacent to hospital entrance","Multiple vehicles stationed 24×7"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Ambulance+Service+Tirumala/data=!4m2!4m1!3e2","img":"ambulance","mx":220,"my":580},{"id":"a1","cat":"accom","name":"CRO — Central Reception","sub":"Reservations","desc":"Online & current accommodation booking · Allocation desk","walk_min":2,"walk_m":150,"directions":["CRO is just opposite Seva Sadan","Cross the road from main gate","Building has clear 'Central Reception Office' signage","Service counters open 24×7"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/CRO+Central+Reception+Office+Tirumala/data=!4m2!4m1!3e2","img":"office","mx":700,"my":745},{"id":"a2","cat":"accom","name":"JEO Office","sub":"Reservations","desc":"Joint Executive Officer · Special quota & VIP reservations","walk_min":3,"walk_m":200,"directions":["Within Seva Sadan administrative complex","Take the inner corridor to wing-B","JEO office is on first floor, room 101","Special quota requests submitted here"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/JEO+Office+TTD+Tirumala/data=!4m2!4m1!3e2","img":"office","mx":665,"my":770},{"id":"a3","cat":"accom","name":"PAC – I","sub":"Stay · PAC Blocks","desc":"Pilgrim Accommodation Complex Block I · Lockers & wash rooms","walk_min":12,"walk_m":950,"directions":["Head east from Seva Sadan along Main Road","Turn south at ATC Circle into accommodation cluster","PAC-I is the first PAC block on your left"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/PAC+1+Pilgrim+Accommodation+Complex+Tirumala/data=!4m2!4m1!3e2","img":"hotel","mx":920,"my":720},{"id":"a4","cat":"accom","name":"PAC – II","sub":"Stay · PAC Blocks","desc":"Pilgrim Accommodation Complex Block II · Lockers & wash rooms","walk_min":13,"walk_m":1000,"directions":["Head east from Seva Sadan along Main Road","Turn south at ATC Circle","PAC-II is adjacent to PAC-I, second block"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/PAC+2+Pilgrim+Accommodation+Tirumala/data=!4m2!4m1!3e2","img":"hotel","mx":970,"my":730},{"id":"a5","cat":"accom","name":"PAC – III","sub":"Stay · PAC Blocks","desc":"Pilgrim Accommodation Complex Block III · Lockers & wash rooms","walk_min":14,"walk_m":1050,"directions":["Head east from Seva Sadan","Cross ATC Circle, take south branch","PAC-III is third block in the row"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/PAC+3+Pilgrim+Accommodation+Tirumala/data=!4m2!4m1!3e2","img":"hotel","mx":1015,"my":745},{"id":"a6","cat":"accom","name":"PAC – IV","sub":"Stay · PAC Blocks","desc":"Pilgrim Accommodation Complex Block IV · Newer block · Lockers & wash rooms","walk_min":14,"walk_m":1100,"directions":["Head east from Seva Sadan","Past ATC Circle into accommodation zone","PAC-IV is the easternmost newer block"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/PAC+4+Pilgrim+Accommodation+Tirumala/data=!4m2!4m1!3e2","img":"hotel","mx":1060,"my":740},{"id":"a7","cat":"accom","name":"Varaha Guest House – 1","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Near Varaha Temple","walk_min":15,"walk_m":1200,"directions":["Head east-north from Seva Sadan toward Pushkarini","Pass Sri Varaha Swamy temple","Guest House-1 is adjacent to temple complex"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Varaha+Swamy+Temple+Guest+House+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":1010,"my":540},{"id":"a8","cat":"accom","name":"Varaha Guest House – 2","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Near Varaha Temple","walk_min":15,"walk_m":1230,"directions":["Same route as Varaha-1; continue 30m further","Guest House-2 is just behind GH-1"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Varaha+Guest+House+2+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":1055,"my":555},{"id":"a9","cat":"accom","name":"Nandakam","sub":"Cottages","desc":"Pilgrims stay at guest house for a day","walk_min":12,"walk_m":950,"directions":["Head east from Seva Sadan","Turn south at ATC Circle","Nandakam cottage is in the central cottage row"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Nandakam+Guest+House+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":1095,"my":580},{"id":"a10","cat":"accom","name":"Narayanagiri Guest","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Hill-view cottage","walk_min":16,"walk_m":1300,"directions":["Head east from Seva Sadan","Cross ATC Circle, continue east","Take the slight north turn to Narayanagiri area","Guest house overlooks hills"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Narayanagiri+Guest+House+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":1130,"my":540},{"id":"a11","cat":"accom","name":"Vakulamatha Rest House","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Named after Vakuladevi","walk_min":13,"walk_m":1050,"directions":["Head east-south from Seva Sadan","Vakulamatha is adjacent to the cottages cluster","Reception at ground floor"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Vakulamatha+Rest+House+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":1115,"my":615},{"id":"a12","cat":"accom","name":"Kaustubham","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Premium block","walk_min":11,"walk_m":900,"directions":["Head east from Seva Sadan","Turn south after 500m","Kaustubham is in the inner accommodation row"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Kaustubham+Cottage+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":1075,"my":645},{"id":"a13","cat":"accom","name":"Alwar Tank Cottages (ATC)","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Near ATC Circle","walk_min":10,"walk_m":800,"directions":["Head east from Seva Sadan","ATC Cottages are immediately at ATC Circle","Multiple blocks named A, B, C"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Alwar+Tank+Cottages+ATC+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":1015,"my":660},{"id":"a14","cat":"accom","name":"Anjanadri Nagar Cottages (ANC)","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Hill-side cottages","walk_min":15,"walk_m":1200,"directions":["Head east-south from Seva Sadan","Pass ATC Circle, continue south","Anjanadri Nagar is the hillside enclave"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Anjanadri+Nagar+Cottages+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":1145,"my":670},{"id":"a15","cat":"accom","name":"Garudadri Nagar Cottages (GNC)","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Multi-block complex","walk_min":14,"walk_m":1150,"directions":["Head east from Seva Sadan","Past ATC Circle, then south-east turn","Garudadri Nagar cottages on your right"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Garudadri+Nagar+Cottages+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":1115,"my":700},{"id":"a16","cat":"accom","name":"Hill View Cottages (Ordinary)","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Affordable hillside rooms","walk_min":17,"walk_m":1350,"directions":["Head east from Seva Sadan","Turn south after ATC Circle and continue 500m","Hill View cottages are on slope at southern end"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Hill+View+Cottages+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":1150,"my":740},{"id":"a17","cat":"accom","name":"Mangala Bavi Cottages (MBC)","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Mid-range cottages","walk_min":13,"walk_m":1050,"directions":["Head east from Seva Sadan past ATC","Turn south at MBC junction","Mangala Bavi block on your left"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Mangala+Bavi+Cottages+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":1085,"my":685},{"id":"a18","cat":"accom","name":"Ram Bagicha Guest House – I","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Near Rambagicha","walk_min":11,"walk_m":900,"directions":["Head south-west from Seva Sadan","Walk through Rambagicha colony for ~600m","GH-I is first guest house on your right"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Ram+Bagicha+Guest+House+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":215,"my":765},{"id":"a19","cat":"accom","name":"Ram Bagicha Guest House – II","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Near Rambagicha","walk_min":12,"walk_m":950,"directions":["Same route as Ram Bagicha-I","Continue 50m further; GH-II is next door"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Ram+Bagicha+Guest+House+2+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":240,"my":800},{"id":"a20","cat":"accom","name":"Ram Bagicha Guest House – III","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Near Rambagicha","walk_min":12,"walk_m":1000,"directions":["Same route as Ram Bagicha-I & II","GH-III is third in the row"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Ram+Bagicha+Guest+House+3+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":270,"my":835},{"id":"a21","cat":"accom","name":"Sanku Mitta Cottages (SMC)","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Sanku Mitta block","walk_min":14,"walk_m":1150,"directions":["Head east from Seva Sadan","After ATC Circle, take SMC turn south-east","Sanku Mitta cottages cluster"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Sanku+Mitta+Cottages+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":1145,"my":615},{"id":"a22","cat":"accom","name":"Seshadri Nagar Cottages (SNC)","sub":"Cottages","desc":"Pilgrims stay at guest house for a day · Seshadri Nagar block","walk_min":11,"walk_m":900,"directions":["Head west-north from Seva Sadan","Seshadri Nagar is the colony just before Aswini Hospital","SNC cottages within colony"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Seshadri+Nagar+Cottages+Tirumala/data=!4m2!4m1!3e2","img":"cottage","mx":375,"my":595},{"id":"a23","cat":"accom","name":"Sri Padmavathi Guest House","sub":"Special Accommodation","desc":"Special accommodation stays · Premium VIP guest house","walk_min":13,"walk_m":1050,"directions":["Head east from Seva Sadan","Past ATC Circle, take northern branch","Padmavathi Guest House is the elite block"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Sri+Padmavathi+Guest+House+Tirumala/data=!4m2!4m1!3e2","img":"premium","mx":915,"my":595},{"id":"a24","cat":"accom","name":"Sri Venkateswara Guest House","sub":"Special Accommodation","desc":"Special accommodation stays · Premium VIP guest house","walk_min":12,"walk_m":1000,"directions":["Head east from Seva Sadan","Past ATC Circle, take northern branch","Venkateswara Guest House adjacent to Padmavathi GH"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Sri+Venkateswara+Guest+House+Tirumala/data=!4m2!4m1!3e2","img":"premium","mx":910,"my":640},{"id":"d1","cat":"darshan","name":"Supatham Entry","sub":"Darshan Entry","desc":"Entry for all Arjitha Seva ticket holders · Main queue","walk_min":5,"walk_m":400,"directions":["Head north from Seva Sadan","Walk along Mada Street toward temple","Supatham entry is at North Mada Street","Show seva ticket at gate"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Supatham+Entry+Tirumala/data=!4m2!4m1!3e2","img":"queue","mx":700,"my":410},{"id":"d2","cat":"darshan","name":"VIP Entry","sub":"Darshan Entry","desc":"Dedicated VIP darshan lane · Entry via VQC complex","walk_min":6,"walk_m":480,"directions":["Head north-east from Seva Sadan","Walk to Vaikuntam Queue Complex (VQC)","VIP entry is the dedicated lane on the east side","Show VIP pass at security"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/VIP+Darshan+Queue+Tirumala/data=!4m2!4m1!3e2","img":"vip","mx":605,"my":380},{"id":"d3","cat":"darshan","name":"SED – 300","sub":"Darshan Entry","desc":"Special Entry Darshan ₹300 ticket · Entry via ATC","walk_min":9,"walk_m":700,"directions":["Head north-east from Seva Sadan","Walk past CRO, toward ATC entry gate","SED-300 lane is on the right at ATC","Show ₹300 ticket at counter"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/SED+300+Queue+Tirumala/data=!4m2!4m1!3e2","img":"queue","mx":815,"my":395},{"id":"d4","cat":"darshan","name":"SSD With Token","sub":"Darshan Entry","desc":"Sarva Sevas Darshan with token · Entry via VQC","walk_min":7,"walk_m":550,"directions":["Head north from Seva Sadan to VQC","Get token from token-issue counter first","Then enter SSD lane in VQC","Token must be shown at every checkpoint"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/SSD+Queue+Tirumala/data=!4m2!4m1!3e2","img":"queue","mx":650,"my":350},{"id":"d5","cat":"darshan","name":"SSD Without Token","sub":"Darshan Entry","desc":"Free Sarva Darshan · Entry via Re-entry route · Longer wait","walk_min":8,"walk_m":620,"directions":["Head north from Seva Sadan","Take re-entry route around VQC east side","Free SSD lane has longer wait (4-8 hours)","No advance booking required"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Sarva+Darshan+Queue+Tirumala/data=!4m2!4m1!3e2","img":"queue","mx":760,"my":350},{"id":"d6","cat":"darshan","name":"NRI / Defence","sub":"Darshan Entry","desc":"Dedicated queue for NRI pilgrims & Defence personnel · Entry via ATC","walk_min":8,"walk_m":650,"directions":["Head north-east from Seva Sadan to ATC","Show NRI passport / Defence ID at gate","NRI lane is on west side of ATC entry","Allotted slots only"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/NRI+Defence+Queue+Tirumala/data=!4m2!4m1!3e2","img":"queue","mx":800,"my":360},{"id":"d7","cat":"darshan","name":"Sr. Citizens / PH / Differently Abled","sub":"Darshan Entry","desc":"Priority darshan via South Mada Street · Accessible queue","walk_min":6,"walk_m":480,"directions":["Head north-east from Seva Sadan","Walk along South Mada Street toward temple","Priority entry gate has wheelchair ramp","Show senior citizen ID / disability certificate"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Senior+Citizens+Darshan+Queue+Tirumala/data=!4m2!4m1!3e2","img":"accessible","mx":700,"my":700},{"id":"d8","cat":"darshan","name":"Electronic Dip's Darshan","sub":"Darshan Entry","desc":"e-Dip seva holders (e.g. Suprabhatam) · Entry via VQC after biometric verification","walk_min":7,"walk_m":560,"directions":["Head north-east from Seva Sadan to VQC","Approach e-Dip biometric counter","Verify thumbprint / Aadhaar","Proceed via designated e-Dip lane"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Suprabhatam+Seva+Tirumala/data=!4m2!4m1!3e2","img":"electronic","mx":590,"my":350},{"id":"s1","cat":"service","name":"KKC — Kalyana Katta","sub":"Tonsuring","desc":"Primary tonsuring (head shaving / muṇḍana) facility · Free of cost · 24×7","walk_min":10,"walk_m":800,"directions":["Head south-west from Seva Sadan","Walk along KKC road for ~500m","Pass Sudarshan Choultry on left","Kalyana Katta is the large pink building","Get token at entrance counter"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Kalyanakatta+Tirumala/data=!4m2!4m1!3e2","img":"tonsure","mx":440,"my":815},{"id":"s2","cat":"service","name":"Earboring (Karṇavedha)","sub":"Services","desc":"Sacred ear-piercing ceremony for infants & children · Karṇavedha Saṃskāra","walk_min":11,"walk_m":900,"directions":["Head south-west from Seva Sadan","Walk past KKC complex","Earboring counter is in adjacent annex","Pre-booking through TTD recommended"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Earboring+Ceremony+Tirumala/data=!4m2!4m1!3e2","img":"ritual","mx":500,"my":855},{"id":"s3","cat":"service","name":"Anna Prasana","sub":"Services","desc":"First solid-food ceremony for infants · Annaprāśana Saṃskāra","walk_min":12,"walk_m":950,"directions":["Head south-west from Seva Sadan to KKC area","Anna Prasana annex behind KKC","Conducted by TTD purohits","Book at Sudarshan Choultry counter"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Anna+Prasana+Ceremony+Tirumala/data=!4m2!4m1!3e2","img":"ritual","mx":560,"my":875},{"id":"s4","cat":"service","name":"Aksharabhyasam","sub":"Services","desc":"Sacred first-writing ceremony for children · Vidyārambham","walk_min":13,"walk_m":1000,"directions":["Head south-west from Seva Sadan","Aksharabhyasam hall in service complex","Adjacent to Anna Prasana annex","Pre-booking through TTD office"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Aksharabhyasam+Ceremony+Tirumala/data=!4m2!4m1!3e2","img":"ritual","mx":615,"my":870},{"id":"f1","cat":"food","name":"RMBGH Food Court","sub":"Food Counters","desc":"Rambagicha major canteen · Meals for pilgrims","walk_min":13,"walk_m":1050,"directions":["Head south-west from Seva Sadan toward Rambagicha","Walk through Rambagicha colony","RMBGH food court is at the centre","Multiple counters; tokens at entry"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/RMBGH+Food+Court+Tirumala/data=!4m2!4m1!3e2","img":"food","mx":335,"my":725},{"id":"f2","cat":"food","name":"MTVAC — Free Annaprasadam","sub":"Food Counters","desc":"Matrusri Tarigonda Vengamamba Annaprasadam Complex · Free meals 24×7","walk_min":8,"walk_m":650,"directions":["Head north-east from Seva Sadan","Walk toward MTVAC complex (clearly signposted)","Massive dining hall with 1000+ capacity","Free meals - no ticket needed"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Matrusri+Tarigonda+Vengamamba+Annaprasadam+Complex+Tirumala/data=!4m2!4m1!3e2","img":"food","mx":790,"my":750},{"id":"f3","cat":"food","name":"Janata Canteen","sub":"Food Counters","desc":"TTD subsidised canteen · Affordable wholesome meals","walk_min":7,"walk_m":550,"directions":["Head north from Seva Sadan","Janata Canteen is near MTVAC complex","Tickets ₹15-30 for full meal","Open 7am - 10pm"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Janata+Canteen+Tirumala/data=!4m2!4m1!3e2","img":"food","mx":760,"my":790},{"id":"l1","cat":"luggage","name":"Luggage Counter","sub":"Luggage / Mobile / Chappals","desc":"Free secure baggage storage before temple entry","walk_min":6,"walk_m":480,"directions":["Head north from Seva Sadan to VQC","Luggage counter at VQC entrance","Free service - get receipt token","Collect after darshan"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Luggage+Counter+Tirumala/data=!4m2!4m1!3e2","img":"luggage","mx":560,"my":440},{"id":"l2","cat":"luggage","name":"Mobile Phone Deposit","sub":"Luggage / Mobile / Chappals","desc":"Phones not allowed in temple · Deposit before entering","walk_min":6,"walk_m":500,"directions":["Head north to VQC area","Mobile deposit counter near luggage","Get plastic token in exchange","Phones strictly prohibited inside Sannidhi"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Mobile+Counter+Tirumala/data=!4m2!4m1!3e2","img":"phone","mx":560,"my":470},{"id":"l3","cat":"luggage","name":"Chappals Counter","sub":"Luggage / Mobile / Chappals","desc":"Footwear deposit · Mandatory before temple entry","walk_min":5,"walk_m":420,"directions":["Head north from Seva Sadan","Chappal stand near temple Mada Street","Free service - keep token","Footwear strictly forbidden in temple"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Chappals+Stand+Tirumala/data=!4m2!4m1!3e2","img":"footwear","mx":640,"my":500},{"id":"e1","cat":"emergency","name":"Seva Sadan (you are here)","sub":"Emergency Contact","desc":"TTD Administrative Hub · Pilgrim helpdesk · ORIGIN POINT","walk_min":0,"walk_m":0,"directions":["You are at Seva Sadan","All routes start from here","TTD admin offices on upper floors","Help desk on ground floor"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Seva+Sadan+Tirumala/data=!4m2!4m1!3e2","img":"office","mx":645,"my":745},{"id":"e2","cat":"emergency","name":"Police Station","sub":"Emergency Contact","desc":"Tirumala Police Station · Security & lost-and-found · 24×7","walk_min":7,"walk_m":550,"directions":["Head west from Seva Sadan","Walk along admin road for 300m","Police station is opposite the post office","Lost & found counter ground floor"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/Tirumala+Police+Station/data=!4m2!4m1!3e2","img":"police","mx":450,"my":720},{"id":"e3","cat":"emergency","name":"TTD Vigilance","sub":"Emergency Contact","desc":"TTD Vigilance Wing · Complaints & grievance redressal","walk_min":3,"walk_m":250,"directions":["Within Seva Sadan complex","Take internal stairs to second floor","Vigilance office in administrative wing","File written complaint at counter"],"gmap":"https://www.google.com/maps/dir/Seva+Sadan+Tirumala/TTD+Vigilance+Office+Tirumala/data=!4m2!4m1!3e2","img":"vigilance","mx":700,"my":760}];
+
+
+const CAT = {
+  transport: { color:'#1F5A8A', bg:'#2B7AB8', icon:'🚌', label:'Transportation' },
+  medical:   { color:'#B82828', bg:'#DC4444', icon:'🏥', label:'Medical' },
+  accom:     { color:'#A06B0A', bg:'#E8B547', icon:'🏨', label:'Accommodation' },
+  darshan:   { color:'#5A3F8C', bg:'#7A5DAB', icon:'🙏', label:'Darshan Entry' },
+  service:   { color:'#1F6E4A', bg:'#2A9870', icon:'✂️', label:'Tonsuring & Services' },
+  food:      { color:'#9C2E16', bg:'#C44A28', icon:'🍛', label:'Food Counters' },
+  luggage:   { color:'#5C5040', bg:'#807060', icon:'🧳', label:'Luggage / Mobile' },
+  emergency: { color:'#8C1414', bg:'#C42828', icon:'🆘', label:'Emergency' },
+};
+
+let activeFilter = 'all';
+let activePoi = null;
+let zoom = 1;
+let panX = 0, panY = 0;
+
+// ── RENDER POIs ──
+function renderPOIs() {
+  const layer = document.getElementById('poiLayer');
+  layer.innerHTML = '';
+  const sq = document.getElementById('search').value.trim().toLowerCase();
+
+  LOCATIONS.forEach(loc => {
+    const c = CAT[loc.cat];
+    if (!c) return;
+
+    let visible = true;
+    if (activeFilter !== 'all' && loc.cat !== activeFilter) visible = false;
+    if (sq) {
+      const matches = loc.name.toLowerCase().includes(sq) || loc.desc.toLowerCase().includes(sq) || (loc.sub||'').toLowerCase().includes(sq);
+      if (!matches) visible = false;
+    }
+
+    const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    group.setAttribute('class', 'poi-group' + (visible ? '' : ' dimmed') + (activePoi === loc.id ? ' active' : ''));
+    group.setAttribute('data-id', loc.id);
+    group.style.transition = 'opacity 0.3s';
+
+    const isOrigin = loc.id === 'e1';
+    const r = isOrigin ? 18 : (activePoi === loc.id ? 16 : 12);
+
+    // Drop shadow ellipse
+    const shadow = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+    shadow.setAttribute('cx', loc.mx);
+    shadow.setAttribute('cy', loc.my + r + 2);
+    shadow.setAttribute('rx', r * 0.7);
+    shadow.setAttribute('ry', r * 0.3);
+    shadow.setAttribute('fill', 'rgba(0,0,0,0.4)');
+    group.appendChild(shadow);
+
+    // Pin teardrop
+    const pin = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    pin.setAttribute('d', `M${loc.mx} ${loc.my+r*0.85} Q${loc.mx-r} ${loc.my} ${loc.mx} ${loc.my-r*1.2} Q${loc.mx+r} ${loc.my} ${loc.mx} ${loc.my+r*0.85}Z`);
+    pin.setAttribute('fill', c.color);
+    pin.setAttribute('stroke', isOrigin ? '#F5D04E' : 'white');
+    pin.setAttribute('stroke-width', isOrigin ? 2.5 : 1.8);
+    pin.setAttribute('filter', 'url(#pinShadow)');
+    group.appendChild(pin);
+
+    // Inner circle
+    const inner = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    inner.setAttribute('cx', loc.mx);
+    inner.setAttribute('cy', loc.my - r * 0.2);
+    inner.setAttribute('r', r * 0.5);
+    inner.setAttribute('fill', 'white');
+    group.appendChild(inner);
+
+    // Icon emoji
+    const icon = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    icon.setAttribute('x', loc.mx);
+    icon.setAttribute('y', loc.my - r * 0.2 + r * 0.22);
+    icon.setAttribute('text-anchor', 'middle');
+    icon.setAttribute('font-size', r * 0.7);
+    icon.textContent = c.icon;
+    group.appendChild(icon);
+
+    // Highlight ring for origin (Seva Sadan)
+    if (isOrigin) {
+      const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      ring.setAttribute('cx', loc.mx);
+      ring.setAttribute('cy', loc.my);
+      ring.setAttribute('r', r + 8);
+      ring.setAttribute('fill', 'none');
+      ring.setAttribute('stroke', '#F5D04E');
+      ring.setAttribute('stroke-width', 2);
+      ring.setAttribute('stroke-dasharray', '4 3');
+      ring.setAttribute('opacity', 0.7);
+      const anim = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+      anim.setAttribute('attributeName', 'r');
+      anim.setAttribute('values', `${r+6};${r+12};${r+6}`);
+      anim.setAttribute('dur', '2s');
+      anim.setAttribute('repeatCount', 'indefinite');
+      ring.appendChild(anim);
+      group.appendChild(ring);
+    }
+
+    // Label below pin
+    if (visible) {
+      const lblBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      const labelText = loc.name.length > 22 ? loc.name.substring(0,20) + '…' : loc.name;
+      const w = labelText.length * 5.4 + 8;
+      lblBg.setAttribute('x', loc.mx - w/2);
+      lblBg.setAttribute('y', loc.my + r + 4);
+      lblBg.setAttribute('width', w);
+      lblBg.setAttribute('height', 14);
+      lblBg.setAttribute('rx', 3);
+      lblBg.setAttribute('class', 'poi-label-bg');
+      group.appendChild(lblBg);
+
+      const lbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      lbl.setAttribute('x', loc.mx);
+      lbl.setAttribute('y', loc.my + r + 14);
+      lbl.setAttribute('text-anchor', 'middle');
+      lbl.setAttribute('class', 'poi-label');
+      lbl.textContent = labelText;
+      group.appendChild(lbl);
+    }
+
+    // Mouse handlers
+    group.addEventListener('mouseenter', e => showTooltip(e, loc));
+    group.addEventListener('mousemove', e => moveTooltip(e));
+    group.addEventListener('mouseleave', hideTooltip);
+    group.addEventListener('click', () => openInfo(loc));
+
+    layer.appendChild(group);
+  });
+}
+
+// ── ROUTE LINE FROM TEMPLE TO POI ──
+function drawRoute(loc) {
+  const layer = document.getElementById('routesLayer');
+  layer.innerHTML = '';
+  if (!loc) return;
+  const c = CAT[loc.cat];
+  const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  line.setAttribute('x1', 700);
+  line.setAttribute('y1', 550);
+  line.setAttribute('x2', loc.mx);
+  line.setAttribute('y2', loc.my);
+  line.setAttribute('stroke', c.color);
+  line.setAttribute('stroke-width', 4);
+  line.setAttribute('stroke-dasharray', '8 6');
+  line.setAttribute('opacity', 0.7);
+  line.setAttribute('class', 'route-line show');
+  // Animate in
+  const len = Math.hypot(loc.mx - 700, loc.my - 550);
+  line.setAttribute('stroke-dashoffset', len);
+  layer.appendChild(line);
+  setTimeout(() => {
+    line.style.transition = 'stroke-dashoffset 0.8s ease';
+    line.setAttribute('stroke-dashoffset', 0);
+  }, 50);
+}
+
+// ── INFO PANEL ──
+function openInfo(loc) {
+  activePoi = loc.id;
+  const c = CAT[loc.cat];
+  const isOrigin = loc.id === 'e1';
+
+  document.getElementById('info-tag').textContent = (loc.sub || c.label).toUpperCase();
+  document.getElementById('info-tag').style.background = c.color;
+  document.getElementById('info-name').textContent = loc.name;
+  document.getElementById('info-desc').textContent = loc.desc;
+  document.getElementById('info-time').textContent = isOrigin ? '— ' : (loc.walk_min + ' min');
+  document.getElementById('info-dist').textContent = isOrigin ? 'HERE' : (loc.walk_m + ' m');
+
+  const dirList = document.getElementById('info-directions');
+  dirList.innerHTML = '';
+  const dirs = isOrigin ? ['You are at Seva Sadan – Origin point for all routes', 'TTD admin offices on upper floors', 'Pilgrim helpdesk on ground floor'] : loc.directions;
+  dirs.forEach(d => {
+    const li = document.createElement('li');
+    li.textContent = d;
+    dirList.appendChild(li);
+  });
+
+  document.getElementById('info-dir-title').textContent = isOrigin ? 'About This Location' : 'Walking Directions from Seva Sadan';
+
+  const btn = document.getElementById('info-btn');
+  btn.href = loc.gmap;
+  btn.textContent = isOrigin ? '🗺️ View Seva Sadan on Google Maps' : '🗺️ Open Walking Route in Google Maps';
+
+  document.getElementById('info').classList.add('visible');
+
+  drawRoute(isOrigin ? null : loc);
+  renderPOIs();
+}
+
+function closeInfo() {
+  activePoi = null;
+  document.getElementById('info').classList.remove('visible');
+  drawRoute(null);
+  renderPOIs();
+}
+
+// ── TOOLTIP ──
+function showTooltip(e, loc) {
+  const c = CAT[loc.cat];
+  document.getElementById('tt-name').textContent = loc.name;
+  const meta = loc.id === 'e1' ? 'You are here · Origin point' : `${loc.walk_min} min walk · ${loc.walk_m}m from Seva Sadan`;
+  document.getElementById('tt-meta').textContent = meta;
+  document.getElementById('tooltip').style.display = 'block';
+  moveTooltip(e);
+}
+function moveTooltip(e) {
+  const t = document.getElementById('tooltip');
+  let x = e.clientX + 14;
+  let y = e.clientY - 10;
+  if (x + 240 > window.innerWidth) x = e.clientX - 250;
+  if (y + 80 > window.innerHeight) y = e.clientY - 90;
+  t.style.left = x + 'px';
+  t.style.top = y + 'px';
+}
+function hideTooltip() {
+  document.getElementById('tooltip').style.display = 'none';
+}
+
+// ── FILTER ──
+function setFilter(cat, el) {
+  activeFilter = cat;
+  document.querySelectorAll('.legend-item').forEach(li => li.classList.remove('active'));
+  el.classList.add('active');
+  closeInfo();
+  renderPOIs();
+}
+
+// ── SEARCH ──
+function searchLocations() {
+  renderPOIs();
+}
+
+// ── ZOOM ──
+function applyZoom() {
+  const svg = document.getElementById('map-svg');
+  svg.style.transform = `scale(${zoom}) translate(${panX}px, ${panY}px)`;
+  svg.style.transformOrigin = 'center center';
+  svg.style.transition = 'transform 0.3s ease';
+}
+function zoomIn() { zoom = Math.min(zoom * 1.25, 3); applyZoom(); }
+function zoomOut() { zoom = Math.max(zoom / 1.25, 0.6); applyZoom(); }
+function resetView() { zoom = 1; panX = 0; panY = 0; applyZoom(); closeInfo(); }
+
+// ── INIT ──
+renderPOIs();
+</script>
+
+</body>
+</html>
